@@ -48,6 +48,13 @@ function findBoardX(screen, pieceX) {
 	return borderX + borderPixelCount / 2 | 0;
 }
 
+// 模拟长按跳跃
+function jump(distanceX) {
+	var x = random(0, deviceWidth);
+	var y = random(deviceHeight / 3, deviceHeight / 3 * 2);
+	press(x, y, distanceX * 1.6);
+}
+
 function keepAwake() {
 	device.keepScreenOn(3600000);
 	events.on('exit', function() {
@@ -79,7 +86,7 @@ function main() {
 			var pieceX = pos.x + pieceWidth / 2;
 			var boardX = findBoardX(screen, pieceX);
 			// console.log(pieceX, boardX);
-			press(0, 0, Math.abs(pieceX - boardX) * 1.6);
+			jump(Math.abs(pieceX - boardX));
 			sleep(1500);
 		}
 	}
