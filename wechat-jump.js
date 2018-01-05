@@ -65,7 +65,7 @@ function keepAwake() {
 
 function main() {
 	toast('正在加载自动跳一跳资源');
-	var piece = images.load('https://github.com/Lanfei/wechat-jump/raw/master/piece.jpg');
+	var piece = images.load('https://gitee.com/lanfei/wechat-jump/raw/master/piece.jpg');
 	if (!piece) {
 		toast('加载失败，请检查网络');
 		return;
@@ -85,7 +85,7 @@ function main() {
 		if (pos) {
 			var pieceX = pos.x + pieceWidth / 2;
 			var boardX = findBoardX(screen, pieceX);
-			// console.log(pieceX, boardX);
+			console.log(pieceX, boardX);
 			jump(Math.abs(pieceX - boardX));
 			sleep(1500);
 		}
