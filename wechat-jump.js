@@ -1,3 +1,4 @@
+var ra;
 var piece;
 var bullseye;
 var deviceWidth = device.width;
@@ -65,14 +66,24 @@ function findBoardX(screen, pieceX, pieceWidth) {
 function jump(duration) {
 	var x = random(0, deviceWidth);
 	var y = random(deviceHeight / 3, deviceHeight / 3 * 2);
-	RootAutomator.press(x, y, duration);
+	if (ra) {
+		ra.press(x, y, duration);
+	} else {
+		press(x, y, duration);
+	}
 }
 
-function keepAwake() {
+function init() {
+	try {
+		ra = new RootAutomator();
+	} catch (e) {}
 	device.keepScreenOn(3600000);
 	events.on('exit', function() {
 		toastLog('自动跳一跳结束');
 		device.cancelKeepingAwake();
+		if (ra) {
+			ra.exit();
+		}
 	});
 }
 
@@ -86,7 +97,7 @@ function main() {
 		return;
 	}
 	var pieceWidth = piece.getWidth();
-	keepAwake();
+	init();
 	toastLog('请允许程序进行屏幕截图');
 	images.requestScreenCapture();
 	toastLog('加载成功，请开始跳一跳游戏');
