@@ -65,7 +65,7 @@ function findBoardX(screen, pieceX, pieceWidth) {
 function jump(duration) {
 	var x = random(0, deviceWidth);
 	var y = random(deviceHeight / 3, deviceHeight / 3 * 2);
-	press(x, y, duration);
+	RootAutomator.press(x, y, duration);
 }
 
 function keepAwake() {
